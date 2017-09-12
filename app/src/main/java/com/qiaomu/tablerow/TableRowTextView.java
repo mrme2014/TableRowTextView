@@ -160,6 +160,8 @@ public class TableRowTextView extends AppCompatTextView {
 
         drawWrapContentCharSequence(canvas);
 
+        drawDividers(canvas);
+
     }
 
     //绘制单元格宽度自适应下的文字分布
@@ -235,6 +237,24 @@ public class TableRowTextView extends AppCompatTextView {
             canvas.drawLine(startx, 0, startx, getHeight(), mLinePaint);//右边的线
         }
     }
+
+    //绘制左上右下的分割线
+    private void drawDividers(Canvas canvas) {
+        if (mShouldDrawLeftLine)
+            canvas.drawLine(0, canvas.getHeight(), 0, canvas.getHeight(), mLinePaint);
+
+        if (mShouldDrawTopLine)
+            canvas.drawLine(0, 0, canvas.getWidth(), 0, mLinePaint);
+
+
+        if (mShouldDrawRightLine)
+            canvas.drawLine(canvas.getWidth(), 0, canvas.getWidth(), canvas.getHeight(), mLinePaint);
+
+
+        if (mShouldDrawLeftLine)
+            canvas.drawLine(0, canvas.getHeight(), canvas.getWidth(), canvas.getHeight(), mLinePaint);
+    }
+
 
     public void setDrawTableDividers(boolean left, boolean top, boolean right, boolean bottom, boolean cellDivider, float cellDividerPadding) {
         mShouldDrawLeftLine = left;
