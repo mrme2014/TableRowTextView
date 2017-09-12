@@ -18,7 +18,7 @@
         android:textColor="@color/colorAccent"
         app:align="center"
         app:cell_divider="true"
-        app:cell_mode="wrapContent"
+        app:cell_mode="fixWidth"
         app:row_divider="left|top|right|bottom" />
 
 

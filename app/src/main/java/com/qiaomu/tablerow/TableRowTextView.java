@@ -162,7 +162,7 @@ public class TableRowTextView extends AppCompatTextView {
 
     }
 
-
+    //绘制单元格宽度自适应下的文字分布
     private void drawWrapContentCharSequence(Canvas canvas) {
         if (mCellMode != WRAP_CONTENT)
             return;
@@ -172,6 +172,7 @@ public class TableRowTextView extends AppCompatTextView {
             CharSequence txt = mList.get(i) == null ? "" : mList.get(i);
             int textWidth = getTextWidth(txt);
             int outerWidth = textWidth <= mFixCellWidth ? mFixCellWidth : textWidth;
+            //StaticLayout不知道是啥的自行百度
             mLayout = new StaticLayout(txt, 0, txt.length(),
                     mTxtPaint, outerWidth, mAlignment, 1.0f, 0f, false);
 
@@ -203,13 +204,14 @@ public class TableRowTextView extends AppCompatTextView {
         }
     }
 
+    //绘制单元格宽度固定下的文字分布
     private void drawFixWidthCharSequence(Canvas canvas) {
         if (mCellMode != FIX_WIDTH)
             return;
 
         for (int i = 0; i < mList.size(); i++) {
             CharSequence txt = getFixCharSequence(mList.get(i));
-
+            //StaticLayout不知道是啥的自行百度
             mLayout = new StaticLayout(txt, 0, txt.length(), mTxtPaint,
                     mFixCellWidth, mAlignment, 1.0f, 0f, true);
             float x = 0;
@@ -227,7 +229,7 @@ public class TableRowTextView extends AppCompatTextView {
         }
     }
 
-
+    //绘制单元格分割线
     private void drawCellDivider(Canvas canvas, float startx) {
         if (mCellDivider) {
             canvas.drawLine(startx, 0, startx, getHeight(), mLinePaint);//右边的线
@@ -247,7 +249,11 @@ public class TableRowTextView extends AppCompatTextView {
         if (lists == null)
             return;
         this.mList = lists;
-        //requestLayout();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (!isInLayout())
+                requestLayout();
+        }
+        invalidate();
     }
 
     public void setTextArray(CharSequence... textArray) {
@@ -266,6 +272,7 @@ public class TableRowTextView extends AppCompatTextView {
         super.setMaxLines(maxlines);
     }
 
+    //计算需要截断的文本
     private CharSequence getFixCharSequence(CharSequence txt) {
         if (getFixWidthLines(txt) <= mMaxlines || mMaxlines == 0)
             return txt;
@@ -281,15 +288,15 @@ public class TableRowTextView extends AppCompatTextView {
                 break;
             }
         }
-
         if (txt instanceof SpannableStringBuilder) {
-            SpannableStringBuilder replace = ((SpannableStringBuilder) txt).delete(overIndex-1 , txt.length());
+            SpannableStringBuilder replace = ((SpannableStringBuilder) txt).delete(overIndex - 1, txt.length());
             return replace.append(ELLIPSIZE);
         }
 
         return txt.subSequence(0, overIndex) + ELLIPSIZE;
     }
 
+    //精确地得到文字宽度
     private int getTextWidth(CharSequence str) {
         int w = 0;
         if (str != null && str.length() > 0) {
@@ -303,13 +310,13 @@ public class TableRowTextView extends AppCompatTextView {
         return w;
     }
 
+    //计算文本行数
     private int getFixWidthLines(CharSequence txt) {
         float measureText = mTxtPaint.measureText(txt, 0, txt.length());
         int lineCount = 1;
         if (measureText > mFixCellWidth) {
             lineCount = (int) (measureText / mFixCellWidth) + 1;
         }
-        Log.e("getFixWidthLines: ", lineCount + "");
         return lineCount;
     }
 
