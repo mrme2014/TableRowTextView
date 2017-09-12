@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="TableRowTextView">
+        <attr name="row_divider"></attr>
+
+        <attr name="cell_divider" format="boolean"></attr>
+        <!--单元格宽度-->
+        <attr name="fixWidth" format="dimension"></attr>
+
+        <attr name="cell_mode" format="enum">
+            <enum name="fixWidth" value="0"></enum>
+            <enum name="wrapContent" value="1"></enum>
+        </attr>
+
+        <attr name="align" format="enum">
+            <enum name="normal" value="0"></enum>
+            <enum name="center" value="1"></enum>
+        </attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="row_divider">
+        <attr name="row_divider">
+            <flag name="left" value="0x01"></flag>
+            <flag name="top" value="0x10"></flag>
+            <flag name="right" value="0x02"></flag>
+            <flag name="bottom" value="0x20"></flag>
+        </attr>
+    </declare-styleable>
+</resources>
