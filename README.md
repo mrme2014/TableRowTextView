@@ -1,5 +1,11 @@
 
 # TableRowTextView表单，表格富媒体
+### 集成方式
+```java
+dependencies{
+            compile 'com.qiaomu.library:tablerowview:1.0.2'
+}
+```
 
 ### 自适应单元格宽度模式
 ![image](https://github.com/mrme2014/TableRowTextView/raw/master/images/1.png)
