@@ -1,6 +1,6 @@
 
 # TableRowTextView表单，表格富媒体
-### 集成方式
+### 添加依赖
 ```java
 dependencies{
             compile 'com.qiaomu.library:tablerowview:1.0.2'
